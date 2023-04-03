@@ -4,11 +4,10 @@ import java.util.Scanner;
 /**
  * @author petruz
  * @email 8olwerk@gmail.com
- * @version 1.1.2
- * Output tested but hardly any written unit-tests.
+ * @version 1.1.5
  */
 
-public abstract class TournamentMaker {
+public class TournamentMaker {
 
     /**
      * Starts a loop that can only be exited by putting in "exit".
@@ -21,15 +20,16 @@ public abstract class TournamentMaker {
      * putting in a valid digit. If the input is invalid the loop resumes and the user is
      * asked to enter the positive even number of participants again.
      */
+
     public static void main(String[] args) {
-        Scanner sc;
-        while (true) {
-            System.out.println("\nEnter an even number of tournament participants.\nEnter 'exit' to exit.");
-            sc = new Scanner(System.in);
-            if (sc.hasNext("exit")){
-                break;
-            }
-            try {
+            Scanner sc;
+            while (true) {
+                System.out.println("\nEnter an even positive number of tournament participants. 250 maximally.\nEnter 'exit' to exit.");
+                sc = new Scanner(System.in);
+                if (sc.hasNext("exit")){
+                    break;
+                }
+                try {
                     int number = sc.nextInt();
                     if ((number & 1) == 1 || number < 1) {
                         System.out.println("\nEnter an even number of participants\n");
@@ -44,33 +44,31 @@ public abstract class TournamentMaker {
                         try {
                             optionNumber = sc2.nextInt() - 1;
                             List<Integer> options = Options.allOptions.get(optionNumber);
-                            if ((number & (number - 1)) == 0) {
-                                if (options.size() == 4) {
+                            if ((options.get(0) & (options.get(0) - 1)) == 0 && options.size() == 4) {
                                     System.out.println("\nCreating perfect tournament.");
                                     Tournament tournament = new perfectTournament(options.get(0), options.get(1));
                                     System.out.print(tournament);
-                                } else {
-                                    throw new Exception("\nThis is not a valid option\n");
-                                }
                             }
                             else if (options.size() == 4) {
                                 System.out.println("\nCreating an even tournament.");
                                 Tournament tournament = new evenTournament(options.get(0), options.get(1));
                                 System.out.print(tournament);
                             }
-                            else  {
+                            else if (!(options.get(2) == 1))  {
                                 System.out.println("\nCreating an tournament with two uneven pools.");
                                 Tournament tournament = new unevenTournament(options.get(0), options.get(1), options.get(2));
                                 System.out.print(tournament);
                             }
-                            System.out.println("\nTournament pool-phase has been presented.");
-                            } catch(Exception e){
-                                System.out.println("\nThis is not a valid option\n");
+                            else {
+                                System.out.println("\nINVALID OPTION\n");
                             }
+                        } catch(Exception e){
+                            System.out.println("\nThis is not a valid option\n");
                         }
-                    } catch (Exception e) {
-                System.out.println("\nThis is not an even number.");
+                    }
+                } catch (Exception e) {
+                    System.out.println("\nThis is not an even number.");
                 }
             }
-     }
+    }
 }

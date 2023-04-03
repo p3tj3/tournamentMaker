@@ -16,13 +16,13 @@ public class unevenTournament extends Tournament {
     }
 
     /**
-     * <p>Method that creates Pool instances of a Tournament instance. The last two pools are of uneven size.<p/>
+     * <p>Method that creates Pool instances of a Tournament instance. The last two pools are of uneven size.</p>
      *
      * <p>Each pool is initialized with a String identifier. The String is constructed by a 27 base system using
-     * ASCII-order 64 (@) to 90 (Z). The first pool is pool A, the 27th pool is A@.
+     * ASCII-order 64 (@) to 90 (Z). The first pool is pool A, the 27th pool is A@.</p>
      *
      * <p>There is the potential issue currently of treating a match between two teams in the sister-pools as two
-     * seperate matches.
+     * seperate matches.</p>
      *
      * @return An Arraylist containing Pool objects in order. The last two pools are of uneven size.
      */

@@ -51,10 +51,10 @@ public abstract class Tournament {
      */
     @Override
     public String toString() {
-        String tournamentString = "\nTournament\n\n";
+        StringBuilder tournamentString = new StringBuilder("\nTOURNAMENT SCHEMA\n");
         for (Pool pool: tournamentpools) {
-            tournamentString += pool.toString();
+            tournamentString.append(pool.toString());
     }
-        return tournamentString;
+        return tournamentString.toString();
     }
 }

@@ -97,7 +97,7 @@ public class TournamentOptions {
                 int numberPools = productDivisors.run(i, j);
                 int participantsPool = productDivisors.run(j, i + primeFactors.size() / 2);
                 List<Integer> a = new ArrayList<>(Arrays.asList(numberPools, participantsPool));
-                if ((participantsPool&1)==0){
+                if ((participantsPool&1) == 0){
                     evenPoolCombo.add(a);
                 }
             }
@@ -125,16 +125,16 @@ public class TournamentOptions {
         primeFactors.addAll(primeFactors);
 
         int counter = 0;
-        if ((numberParticipants/2&1)==1){
+        if ((numberParticipants / 2 & 1) == 1) {
             counter++;
-            this.unevenPoolcombinations.add(new ArrayList<>(Arrays.asList(0, numberParticipants/2, numberParticipants/2)));
-            unevenPoolcombinations.get(0).addAll(postPoolRounds(new ArrayList<>(Arrays.asList(2, numberParticipants/2))));
+            this.unevenPoolcombinations.add(new ArrayList<>(Arrays.asList(0, numberParticipants / 2, numberParticipants / 2)));
+            unevenPoolcombinations.get(0).addAll(postPoolRounds(new ArrayList<>(Arrays.asList(2, numberParticipants / 2))));
         }
 
         for (int numberPools = 2; numberPools < numberParticipants; numberPools++) {
             if ((numberParticipants + 2) % (numberPools + 2) == 0) {
                 int sizePool = (numberParticipants + 2) / (numberPools + 2);
-                if ((sizePool & 1) != 1 && sizePool != 2) {
+                if ((sizePool > 1) && (sizePool & 1) != 1 && sizePool != 2) {
                     this.unevenPoolcombinations.add(new ArrayList<>(Arrays.asList(numberPools, sizePool, sizePool - 1)));
                 }
             }
@@ -143,13 +143,14 @@ public class TournamentOptions {
         for (int numberPools = 2; numberPools < numberParticipants; numberPools++) {
             if ((numberParticipants - 2) % (numberPools + 2) == 0) {
                 int sizePool = (numberParticipants - 2) / (numberPools + 2);
-                if ((sizePool & 1) != 1 && (numberParticipants <= sizePool * numberPools + (sizePool + 1) * 2)) {
+                if ((sizePool > 1) && (sizePool & 1) != 1 && (numberParticipants <= sizePool * numberPools + (sizePool + 1) * 2)) {
                     this.unevenPoolcombinations.add(new ArrayList<>(Arrays.asList(numberPools, sizePool, sizePool + 1)));
                 }
             }
         }
+
         this.unevenPoolcombinations.subList(counter,
-                unevenPoolcombinations.size()).forEach(innerList -> innerList.addAll(postPoolRounds(innerList.subList(0,2))));
+                    unevenPoolcombinations.size()).forEach(innerList -> innerList.addAll(postPoolRounds(innerList.subList(0, 2))));
     }
 
     /**
@@ -194,41 +195,42 @@ public class TournamentOptions {
     public String toString() {
 
         String options = "NUMBER OF PARTICIPANTS: " + numberParticipants + "\n";
-        if ((numberParticipants -1 & numberParticipants) == 1) {
-            options += "PERFECT COMBINATIONS\n";
-        }
 
+        options += "\nEVEN POOLS\n";
+
+        StringBuilder optionsBuilder = new StringBuilder(options);
         for (int i = 0; i < evenPoolcombinations.size(); i++) {
             List<Integer> pooldata = evenPoolcombinations.get(i);
-            options += "\noption " + (i+1) + ": " + pooldata.get(0) + " Pools of size " + pooldata.get(1) +
-            ". Possible number of post-pool-rounds: " + pooldata.get(2);
+            String perfect = ((pooldata.get(0) -1 & pooldata.get(0)) == 0) ? "PERFECT" : "";
+            optionsBuilder.append("\noption ").append(i + 1).append(" ").append(perfect).append(": ").append(pooldata.get(0)).append(" Pools of size ").append(pooldata.get(1)).append(". Possible ").append(" number of post-pool-rounds: ").append(pooldata.get(2));
             if (!pooldata.get(2).equals(pooldata.get(3))) {
-                options += " to " + pooldata.get(3) + "\n";
+                optionsBuilder.append(" to ").append(pooldata.get(3)).append("\n");
+            }
+        }
+        options = optionsBuilder.toString();
+
+        options += "\n\nWITH TWO UNEVEN POOLS\n";
+
+        int uneven = ((numberParticipants/2&1)==1) ? 1 : 0;
+        if (uneven==1 && numberParticipants > 2) {
+            options += "\noption " + (1 + evenPoolcombinations.size()) + ": 2 pools of size " + unevenPoolcombinations.get(0).get(2) +
+                    ". Possible number of post-pool-rounds: "+ unevenPoolcombinations.get(0).get(3);
+            if (!Objects.equals(unevenPoolcombinations.get(0).get(3), unevenPoolcombinations.get(0).get(4))) {
+                options += " to " + unevenPoolcombinations.get(0).get(4) + "\n";
             }
         }
 
-        if ((numberParticipants - 1 & numberParticipants) != 0) {
-
-            options += "\n\nWITH TWO UNEVEN POOLS\n";
-
-            int uneven = ((numberParticipants/2&1)==1) ? 1 : 0;
-            if (uneven==1) {
-                options += "\noption " + (1 + evenPoolcombinations.size()) + ": 2 pools of size " + unevenPoolcombinations.get(0).get(2) +
-                        ". Possible number of post-pool-rounds: "+ unevenPoolcombinations.get(0).get(3);
-                if (!Objects.equals(unevenPoolcombinations.get(0).get(3), unevenPoolcombinations.get(0).get(4))) {
-                    options += " to " + unevenPoolcombinations.get(0).get(4) + "\n";
-                }
-            }
-
-            for (int i = uneven; i < unevenPoolcombinations.size(); i++) {
-                List<Integer> pooldata = unevenPoolcombinations.get(i);
-                options += "\noption " + (i + 1 + evenPoolcombinations.size()) + ": " + pooldata.get(0) + " Pools of size " + pooldata.get(1) +
-                        " and 2 pools of size " + pooldata.get(2) + ". Possible number of post-pool-rounds: " + pooldata.get(3);
+        StringBuilder optionsBuilder1 = new StringBuilder(options);
+        for (int i = uneven; i < unevenPoolcombinations.size(); i++) {
+            List<Integer> pooldata = unevenPoolcombinations.get(i);
+            if (!(pooldata.get(2) == 2)) {
+                optionsBuilder1.append("\noption ").append(i + 1 + evenPoolcombinations.size()).append(": ").append(pooldata.get(0)).append(" Pools of size ").append(pooldata.get(1)).append(" and 2 pools of size ").append(pooldata.get(2)).append(". Possible number of post-pool-rounds: ").append(pooldata.get(3));
                 if (!Objects.equals(pooldata.get(3), pooldata.get(4))) {
-                    options += " to " + pooldata.get(4) + "\n";
+                    optionsBuilder1.append(" to ").append(pooldata.get(4)).append("\n");
                 }
             }
         }
+        options = optionsBuilder1.toString();
         return options;
     }
 }
