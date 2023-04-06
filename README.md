@@ -19,9 +19,9 @@ There are two main types of tournament-configurations: 1) even and 2) uneven.
 
 Every team can play against any other team in the pool solely. This yields the best intra-pool performance comparison and every pool can do this within the same number of rounds.
 
-There is a special subtype of this kind of tournament, when the number of participants is equal to a power of two. This subtype results not only in an obvious way of creating post-pool-rounds. It also enables an equal number of pool members to continue to the next round. For these reasons the subtype is referred to as a perfect tournament.
+There is a special subtype of this kind of tournament, when the number of pools is equal to a power of two. This subtype results not only in an obvious way of creating post-pool-rounds. It also enables an equal number of pool members to continue to the next round. For these reasons the subtype is referred to as a perfect tournament.
 
-The tournaments of type 1 where the number of participants is not equal to a power of 2 are required to compare inter-pool performance. This results in delegating an uneven number of pool-members to the next round and mildly contaminating it, while it will also be unknown how many members a pool will delegate to ‘the playoffs’ eventually.
+The tournaments of type 1 where the number of groups is not equal to a power of 2 are required to compare inter-pool performance. This results in delegating an uneven number of pool-members to the next round and mildly contaminating it, while it will also be unknown how many members a pool will delegate to ‘the playoffs’ eventually.
 
 While tournament type 1 usually generates a usable option, one might have to resort to another type of tournament.
 
