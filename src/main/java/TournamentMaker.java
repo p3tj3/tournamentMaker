@@ -4,7 +4,7 @@ import java.util.Scanner;
 /**
  * @author petruz
  * @email 8olwerk@gmail.com
- * @version 1.1.5
+ * @version 1.1.6
  */
 
 public class TournamentMaker {

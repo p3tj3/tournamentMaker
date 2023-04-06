@@ -21,53 +21,53 @@ public class Match {
      */
     private final String matchID;
     /**
-     * An instance of Score initialized at the start of the match.
-     */
-    private Score score = null;
-
+//     * An instance of Score initialized at the start of the match.
+//     */
+//    private Score score = null;
+//
     public Match(String teamOne, String teamTwo, String matchID) {
         this.teamOne = teamOne;
         this.teamTwo = teamTwo;
         this.matchID = matchID;
         this.play = false;
     }
-
-    /**
-     * A method for starting a match
-     */
-    public void startMatch() {
-        if (!this.play) {
-            Score score = new Score(0, 0);
-            this.play = true;
-        }
-    }
-
-    /**
-     * A method for changing the score of a match.
-     * @param one the score for team One
-     * @param two the score for team Two
-     */
-    public void changeScore(int one, int two) {
-        if (!this.play) {
-            score.changeScore(new Score(one, two));
-        }
-    }
-
-    /**
-     * An inner private class not further used or tested. Used to update the score.
-     */
-    private class Score {
-        private int scoreTeamOne;
-        private int scoreTeamTwo;
-        private Score(int i, int j) {
-            this.scoreTeamOne = i;
-            this.scoreTeamTwo = j;
-        }
-        private void changeScore(Score other) {
-            this.scoreTeamOne += other.scoreTeamOne;
-            this.scoreTeamTwo += other.scoreTeamTwo;
-        }
-    }
+//
+//    /**
+//     * A method for starting a match
+//     */
+//    public void startMatch() {
+//        if (!this.play) {
+//            Score score = new Score(0, 0);
+//            this.play = true;
+//        }
+//    }
+//
+//    /**
+//     * A method for changing the score of a match.
+//     * @param one the score for team One
+//     * @param two the score for team Two
+//     */
+//    public void changeScore(int one, int two) {
+//        if (!this.play) {
+//            score.changeScore(new Score(one, two));
+//        }
+//    }
+//
+//    /**
+//     * An inner private class not further used or tested. Used to update the score.
+//     */
+//    private class Score {
+//        private int scoreTeamOne;
+//        private int scoreTeamTwo;
+//        private Score(int i, int j) {
+//            this.scoreTeamOne = i;
+//            this.scoreTeamTwo = j;
+//        }
+//        private void changeScore(Score other) {
+//            this.scoreTeamOne += other.scoreTeamOne;
+//            this.scoreTeamTwo += other.scoreTeamTwo;
+//        }
+//    }
     /**
      * @return String displaying the teams involved and the Match ID.
      */

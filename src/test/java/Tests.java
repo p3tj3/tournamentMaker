@@ -6,6 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class Tests {
 
+    /**
+     * <p>Some of test are not flexible in hindsight. In case you want to change the output, you could opt for putting the current
+     * output in a seperate test method inside the source code and to remove this after version completion. This proces can be
+     * repeated.</p>
+     */
     @Test
     void factor28() {
         assertEquals(Arrays.asList(2, 2, 7), TournamentOptions.getPrimefactors(28));
@@ -59,6 +64,8 @@ class Tests {
         assertTrue(output.equals(Options.allOptions));
     }
 
+
+
     @Test
     void OptionsTest4_6() {
         int number = 6;
@@ -68,6 +75,27 @@ class Tests {
                 Arrays.asList(0, 3, 3, 1, 2));
         TournamentOptions Options = new TournamentOptions(number);
         assertTrue(output.equals(Options.allOptions));
+    }
+
+    @Test
+    void matchtest_participants_4_option_1() {
+
+        String matchInfo = "\nTOURNAMENT SCHEMA\n" +
+                "\nPOOL A\n" +
+                "ROUND A1\n" +
+                "match A.1.1 - A1 vs A2\n\n" +
+                "POOL B\n" +
+                "ROUND B1\n" +
+                "match B.1.1 - B1 vs B2\n\n" +
+                "POOL C\n" +
+                "ROUND C1\n" +
+                "match C.1.1 - C1 vs C2\n\n" +
+                "POOL D\n" +
+                "ROUND D1\n" +
+                "match D.1.1 - D1 vs D2\n";
+
+        Tournament tournament = new perfectTournament(4, 2);
+        assertTrue(tournament.toString().equals(matchInfo));
     }
 
     @Test
@@ -84,6 +112,28 @@ class Tests {
         assertTrue(output.equals(Options.allOptions));
     }
 
+
+    @Test
+    void OptionsTest7_248() {
+
+        int number = 248;
+
+        List<List<Integer>> output = Arrays.asList(
+                Arrays.asList(1, 248, 0, 7),
+                Arrays.asList(2, 124, 1, 7),
+                Arrays.asList(4, 62, 2, 7),
+                Arrays.asList(31, 8, 5, 7),
+                Arrays.asList(62, 4, 6, 7),
+                Arrays.asList(124, 2, 7, 7),
+                Arrays.asList(3, 50, 49, 2, 7),
+                Arrays.asList(23, 10, 9, 5, 7),
+                Arrays.asList(39, 6, 7, 6, 7),
+                Arrays.asList(121, 2, 3, 7, 7)
+        );
+
+        TournamentOptions Options = new TournamentOptions(number);
+        assertTrue(output.equals(Options.allOptions));
+    }
 
     @Test
     void matchtest_participants_8_option_3() {
@@ -167,6 +217,104 @@ class Tests {
 
         Tournament tournament = new evenTournament(3, 2);
         assertTrue(tournament.toString().equals(matchInfo));
+    }
+
+    @Test
+    void matchtest_participants_12_5() {
+
+        String matchInfo = "\nTOURNAMENT SCHEMA\n\n" + "POOL A\n" +
+                "ROUND A1\n" +
+                "match A.1.1 - A1 vs A2\n" +
+                "\n" +
+                "POOL B\n" +
+                "ROUND B1\n" +
+                "match B.1.1 - B1 vs B2\n" +
+                "\n" +
+                "POOL C\n" +
+                "ROUND C1\n" +
+                "match C.1.1 - C1 vs C2\n" +
+                "\n" +
+                "POOL D\n" +
+                "ROUND D1\n" +
+                "match E.D.1.1 - D1 vs E1\n" +
+                "match D.1.2 - D3 vs D2\n" +
+                "\n" +
+                "POOL E\n" +
+                "ROUND E1\n" +
+                "match D.E.1.1 - E1 vs D1\n" +
+                "match E.1.2 - E3 vs E2\n";
+
+        Tournament tournament = new unevenTournament(3, 2, 3);
+        assertTrue(tournament.toString().equals(matchInfo));
+    }
+
+    @Test
+    void OptionsTest_participants_12() {
+
+        int number = 6;
+
+        List<List<Integer>> options = Arrays.asList(
+                Arrays.asList(1, 6, 0, 2),
+                Arrays.asList(3, 2, 2, 2),
+                Arrays.asList(0, 3, 3, 1, 2)
+        );
+
+        TournamentOptions Options = new TournamentOptions(number);
+        assertTrue(options.equals(Options.allOptions));
+    }
+
+    @Test
+    void OptionsTest_participants_10() {
+
+        int number = 10;
+
+        List<List<Integer>> list = Arrays.asList(
+                Arrays.asList(1, 10, 0, 3),
+                Arrays.asList(5, 2, 3, 3),
+                Arrays.asList(0, 5, 5, 1, 3),
+                Arrays.asList(2, 2, 3, 1, 1)
+        );
+
+        TournamentOptions options = new TournamentOptions(number);
+        assertTrue(list.equals(options.allOptions));
+    }
+
+    @Test
+    void matchtest_participants_10_4() {
+
+        String matchInfo = "\nTOURNAMENT SCHEMA\n\n" +
+                "POOL A\n" +
+                "ROUND A1\n" +
+                "match A.1.1 - A1 vs A2\n\n" +
+                "POOL B\n" +
+                "ROUND B1\n" +
+                "match B.1.1 - B1 vs B2\n\n" +
+                "POOL C\n" +
+                "ROUND C1\n" +
+                "match D.C.1.1 - C1 vs D1\n" +
+                "match C.1.2 - C3 vs C2\n\n" +
+                "POOL D\n" +
+                "ROUND D1\n" +
+                "match C.D.1.1 - D1 vs C1\n" +
+                "match D.1.2 - D3 vs D2\n";
+
+        Tournament tournament = new unevenTournament(2, 2, 3);
+        assertTrue(tournament.toString().equals(matchInfo));
+    }
+
+    @Test
+    void OptionsTest_participants_6() {
+
+        int number = 6;
+
+        List<List<Integer>> options = Arrays.asList(
+                Arrays.asList(1, 6, 0, 2),
+                Arrays.asList(3, 2, 2, 2),
+                Arrays.asList(0, 3, 3, 1, 2)
+        );
+
+        TournamentOptions Options = new TournamentOptions(number);
+        assertTrue(options.equals(Options.allOptions));
     }
 
     @Test
